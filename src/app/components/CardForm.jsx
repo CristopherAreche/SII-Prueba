@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { UploadCreditCard } from "../services/uploadCreditCard.service";
 import Image from "next/image";
 import { CardTypeImages } from "../assets/CardTypeImages";
+import Flipper from "./Flipper";
 
 export const CardForm = () => {
   const { Chip, Visa, Mastercard, AmericanExp } = CardTypeImages;
@@ -85,6 +86,7 @@ export const CardForm = () => {
         ...prevData,
         [name]: formattedValue,
       }));
+      setIsFlipped(true);
     } else {
       const formattedValue = value.replace(/\d{4}(?=\d)/g, "$& ");
       if (name == "CVV") {
@@ -246,9 +248,9 @@ export const CardForm = () => {
               className={`backside rounded-lg flex flex-col items-center py-8 gap-y-8
              ${cardTypeColor}
               `}
-              style={{ transform: "rotateY(180deg)" }}
-              initial={{ rotateY: 180 }}
-              animate={{ rotateY: isFlipped ? 0 : 180 }}
+              style={{ transform: "rotateY(-180deg)" }}
+              initial={{ rotateY: -180 }}
+              animate={{ rotateY: isFlipped ? 0 : -180 }}
             >
               <div className="w-full h-14 bg-slate-700"></div>
               <div className="w-[90%] h-14 bg-slate-100 flex justify-end items-center px-3">
@@ -267,6 +269,7 @@ export const CardForm = () => {
             <div className="sm:w-1/2 w-full flex flex-col gap-y-2">
               <label className="font-bold">Número de Tarjeta </label>
               <input
+                placeholder="1234 1234 1234 1234"
                 className="rounded-lg border border-gray-300 h-10 px-2"
                 onChange={handleChange}
                 name="Number"
@@ -291,6 +294,7 @@ export const CardForm = () => {
             <div className="sm:w-1/2 w-full flex flex-col gap-y-2">
               <label className="font-bold">Fecha Vencimiento </label>
               <input
+                placeholder="12 / 23"
                 className="rounded-lg border border-gray-300 h-10 px-2"
                 onChange={handleChange}
                 name="Date"
@@ -306,6 +310,7 @@ export const CardForm = () => {
             <div className="sm:w-1/2 w-full flex flex-col gap-y-2">
               <label className="font-bold">Nombre Titular </label>
               <input
+                placeholder="Cristopher Areche"
                 className="rounded-lg border border-gray-300 h-10 px-2"
                 onChange={handleChange}
                 name="Name"
@@ -319,13 +324,17 @@ export const CardForm = () => {
             </div>
             <div className="sm:w-1/2 w-full flex flex-col gap-y-2">
               <label className="font-bold">CVV </label>
-              <input
-                className="rounded-lg border border-gray-300 h-10 w-40 px-2"
-                onChange={handleChange}
-                name="CVV"
-                required
-                value={data.CVV}
-              />
+              <div className="flex gap-4">
+                <input
+                  placeholder="123"
+                  className="rounded-lg border border-gray-300 h-10 w-40 px-2"
+                  onChange={handleChange}
+                  name="CVV"
+                  required
+                  value={data.CVV}
+                />
+                <Flipper setIsFlipped={setIsFlipped} isFlipped={isFlipped} />
+              </div>
             </div>
           </div>
           <div className="flex gap-x-4">
