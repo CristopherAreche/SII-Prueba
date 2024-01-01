@@ -29,7 +29,6 @@ export const CardForm = () => {
     setData(reset);
     setCardType("Unknown");
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -104,7 +103,6 @@ export const CardForm = () => {
       }
     }
   };
-
   const detectCardType = (cardNumber) => {
     const regexMastercard = /^5[1-5]/;
     const regexVisa = /^4/;
@@ -120,7 +118,6 @@ export const CardForm = () => {
       setCardType("Unknown");
     }
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -158,7 +155,6 @@ export const CardForm = () => {
     "American Express": "bg-gray-600",
   };
   const defaultColor = "bg-slate-900";
-
   const cardTypeColor = cardTypeColors[cardType] || defaultColor;
 
   return (
